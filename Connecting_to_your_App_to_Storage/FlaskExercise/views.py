@@ -1,33 +1,38 @@
-from flask import render_template, redirect, request, url_for
-from FlaskExercise import app, db
-from FlaskExercise.forms import AnimalForm
+from flask import Blueprint, render_template, redirect, request, url_for, current_app
+from FlaskExercise import db
 import FlaskExercise.models as models
+from FlaskExercise.forms import AnimalForm
 
-# Construct base image URL
-IMAGE_SOURCE_URL = f"https://{app.config['BLOB_ACCOUNT']}.blob.core.windows.net/{app.config['BLOB_CONTAINER']}/"
+bp = Blueprint("main", __name__)
 
-@app.route("/")
-@app.route("/home")
+def image_source_url():
+    return (
+        f"https://{current_app.config['BLOB_ACCOUNT']}.blob.core.windows.net/"
+        f"{current_app.config['BLOB_CONTAINER']}/"
+    )
+
+@bp.route("/")
+@bp.route("/home")
 def home():
     animals = models.Animal.query.all()
     return render_template(
         "index.html",
-        imageSource=IMAGE_SOURCE_URL,
+        imageSource=image_source_url(),
         animals=animals
     )
 
-@app.route("/animal/<int:id>", methods=["GET", "POST"])
+@bp.route("/animal/<int:id>", methods=["GET", "POST"])
 def animal(id):
-    animal_obj = models.Animal.query.get_or_404(id)
+    animal_obj = models.Animal.query.get_or_404(int(id))
     form = AnimalForm(obj=animal_obj)
 
     if form.validate_on_submit():
         animal_obj.save_changes(request.files.get("image_path"))
-        return redirect(url_for("home"))
+        return redirect(url_for("main.home"))
 
     return render_template(
         "animal.html",
-        imageSource=IMAGE_SOURCE_URL,
+        imageSource=image_source_url(),
         form=form,
         animal=animal_obj
     )

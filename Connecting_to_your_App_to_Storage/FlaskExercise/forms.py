@@ -3,5 +3,7 @@ from flask_wtf.file import FileField, FileAllowed
 from wtforms import SubmitField
 
 class AnimalForm(FlaskForm):
-    image_path = FileField("Image", validators=[FileAllowed(["jpg", "jpeg", "png"], "Images only!")])
-    submit = SubmitField("Save")
+    image_path = FileField('Image', validators=[
+        FileAllowed(['jpg', 'jpeg', 'png'], 'Images only!')
+    ])
+    submit = SubmitField('Save')

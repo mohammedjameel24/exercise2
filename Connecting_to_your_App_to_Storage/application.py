@@ -1,5 +1,7 @@
 from os import getenv
-from FlaskExercise import app
+from FlaskExercise import create_app
+
+app = create_app()
 
 if __name__ == "__main__":
     host = getenv("SERVER_HOST", "localhost")
