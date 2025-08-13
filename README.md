@@ -19,6 +19,15 @@ storage connections, but other changes may be necessary.
 
 ## Troubleshooting
 
+
+- sudo apt-get update && sudo apt-get install -y unixodbc
+
+- sudo apt-get update
+
+- curl https://packages.microsoft.com/debian/12/prod/pool/main/m/msodbcsql18/msodbcsql18_18.3.2.1-1_amd64.deb -o msodbcsql18.deb; sudo ACCEPT_EULA=Y dpkg --install msodbcsql18.deb
+
+- sudo apt upgrade -y
+
 - Mac users may need to install `unixodbc` as well as related drivers as shown below:
     ```bash
     brew install unixodbc
