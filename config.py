@@ -22,7 +22,7 @@ class Config:
         f"Pwd={SQL_PASSWORD};"
         "Encrypt=yes;"
         "TrustServerCertificate=no;"
-        "Connection Timeout=30;"
+        "Connection Timeout=100;"
     )
 
     # URL‑encode and pass via odbc_connect
@@ -34,5 +34,5 @@ class Config:
 
     # Azure storage
     BLOB_ACCOUNT = os.getenv("BLOB_ACCOUNT", "exercise2storageaccount")
-    BLOB_STORAGE_KEY = os.getenv("BLOB_STORAGE_KEY", "Kt99b08PC3U66phkHQ+nRoExgmb2X59qwV4GGvlkI/Lda2Kyb7AAKorw6omepw9TFiVcEjg8KWAa+AStFZz5hg==")
+    BLOB_STORAGE_KEY = os.getenv("BLOB_STORAGE_KEY", "KEY")
     BLOB_CONTAINER = os.getenv("BLOB_CONTAINER", "images")
